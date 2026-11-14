@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Phuonk Ank hêhhe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&family=Tiny5&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout" id="appLayout">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <div class="brand">
+                    <div class="brand-icon">PA</div>
+                    <span class="brand-name">SUDOKU</span>
+                </div>
+
+                <button class="collapse-button" id="collapseButton" title="Collapse sidebar">
+                    ☰
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-button active" data-section="gameSection" title="Game">
+                    <span class="nav-icon">▦</span>
+                    <span class="nav-label">GAME</span>
+                </button>
+
+                <button class="nav-button" data-section="musicSection" title="Music">
+                    <span class="nav-icon">♫</span>
+                    <span class="nav-label">MUSIC</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="nav-button" id="themeToggle" title="Toggle theme">
+                    <span class="nav-icon" id="themeIcon">☼</span>
+                    <span class="nav-label" id="themeLabel">LIGHT MODE</span>
+                </button>
+
+                <div class="sidebar-credit">
+                    <span class="credit-label">BUILT BY</span>
+                    <span class="credit-name">PHUONG ANH</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">NUMBER PUZZLE</p>
+                    <h1>SUDOKU<span class="title-dot">.</span></h1>
+                </div>
+
+                <div class="topbar-status">
+                    <span class="status-dot"></span>
+                    <span>READY TO PLAY</span>
+                </div>
+            </header>
+
+            <section class="page-section active" id="gameSection">
+                <div class="game-layout">
+
+                    <div class="game-main">
+                        <div class="game-toolbar">
+                            <div class="toolbar-settings">
+                                <div class="difficulty-control">
+                                    <label for="difficulty">DIFFICULTY</label>
+                                    <select id="difficulty">
+                                        <option value="easy">EASY</option>
+                                        <option value="medium" selected>MEDIUM</option>
+                                        <option value="hard">HARD</option>
+                                    </select>
+                                </div>
+
+                                <div class="difficulty-control time-control">
+                                    <label for="timeLimit">TIME LIMIT (MIN)</label>
+                                    <input
+                                        type="number"
+                                        id="timeLimit"
+                                        min="1"
+                                        max="180"
+                                        step="1"
+                                        value="15"
+                                        placeholder="15"
+                                    >
+                                </div>
+                            </div>
+
+                            <button class="secondary-button" id="newGameButton">
+                                NEW GAME ↻
+                            </button>
+                        </div>
+
+                        <div class="board-frame">
+                            <div class="board" id="board" aria-label="Sudoku board"></div>
+                        </div>
+
+                        <div class="number-pad" id="numberPad">
+                            <button class="number-button" data-number="1">1</button>
+                            <button class="number-button" data-number="2">2</button>
+                            <button class="number-button" data-number="3">3</button>
+                            <button class="number-button" data-number="4">4</button>
+                            <button class="number-button" data-number="5">5</button>
+                            <button class="number-button" data-number="6">6</button>
+                            <button class="number-button" data-number="7">7</button>
+                            <button class="number-button" data-number="8">8</button>
+                            <button class="number-button" data-number="9">9</button>
+                        </div>
+
+                        <div class="board-actions">
+                            <button class="action-button" id="eraseButton">
+                                <span>⌫</span> ERASE
+                            </button>
+                            <button class="action-button" id="hintButton">
+                                <span>✦</span> HINT
+                            </button>
+                            <button class="action-button" id="checkButton">
+                                <span>✓</span> CHECK
+                            </button>
+                            <button class="action-button" id="restartButton">
+                                <span>↻</span> RESTART
+                            </button>
+                        </div>
+                    </div>
+
+                    <aside class="game-sidebar">
+                        <div class="info-card timer-card">
+                            <p class="card-label">TIME LEFT</p>
+                            <div class="timer" id="timer">15:00</div>
+                            <div class="timer-line">
+                                <div class="timer-line-fill" id="timerFill"></div>
+                            </div>
+                        </div>
+
+                        <div class="info-card progress-card">
+                            <div class="card-heading">
+                                <p class="card-label">PROGRESS</p>
+                                <span id="progressPercent">0%</span>
+                            </div>
+
+                            <div class="progress-track">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+
+                            <p class="progress-count" id="progressText">0 / 81</p>
+
+                            <div class="mission">
+                                <p class="mission-title">YOUR MISSION</p>
+                                <p class="mission-text">Complete the grid.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card instructions-card">
+                            <p class="card-label">HOW TO PLAY</p>
+                            <ul>
+                                <li>Fill each row with 1–9.</li>
+                                <li>Each column must contain 1–9.</li>
+                                <li>Each 3×3 box must contain 1–9.</li>
+                                <li>Numbers cannot repeat.</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card controls-card">
+                            <p class="card-label">KEYBOARD</p>
+                            <div class="key-row"><kbd>1–9</kbd><span>Enter number</span></div>
+                            <div class="key-row"><kbd>← ↑ ↓ →</kbd><span>Move cell</span></div>
+                            <div class="key-row"><kbd>Backspace</kbd><span>Erase cell</span></div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <section class="page-section" id="musicSection">
+                <div class="music-card">
+                    <div class="music-heading">
+                        <span class="music-icon">♫</span>
+                        <div>
+                            <p class="eyebrow">FOCUS MODE</p>
+                            <h2>YOUR PLAYLIST</h2>
+                            <p>Listen to your favorite music while you solve.</p>
+                            <p><b>You can use paste either Youtube Music link or Spotify link (only Preview music mode)</b></p>
+                        </div>
+                    </div>
+
+                    <label for="playlistUrl">YOUTUBE OR SPOTIFY URL</label>
+
+                    <div class="music-input-row">
+                        <input
+                            type="url"
+                            id="playlistUrl"
+                            placeholder="Paste your YouTube playlist or Spotify link..."
+                        >
+                        <button class="primary-button" id="loadPlaylistButton">
+                            LOAD ↗
+                        </button>
+                    </div>
+
+                    <p class="music-note">
+                        Supports YouTube videos, playlists, and Spotify tracks, albums or playlists.
+                    </p>
+
+                    <div class="music-player" id="musicPlayer">
+                        <div class="music-placeholder">
+                            <span>♫</span>
+                            <p>Your music player will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-main">
+                    <span class="footer-built">BUILT BY PHUONG ANH</span>
+                    <span class="footer-quote">"Dream big, at least you dreamt!"</span>
+                    <span class="footer-love">Love towards Algorithms :)</span>
+                </div>
+
+                <div class="footer-links">
+                    <a href="https://github.com/PhuongAnhNguyn" target="_blank" rel="noopener noreferrer">
+                        GITHUB ↗
+                    </a>
+                    <span>© 2026 PHUONG ANH</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-symbol" id="modalSymbol">✦</div>
+            <p class="eyebrow" id="modalEyebrow">PUZZLE COMPLETE</p>
+            <h2 id="modalTitle">YOU DID IT!</h2>
+            <p class="modal-message" id="modalMessage">
+                Great work. You solved the puzzle.
+            </p>
+            <button class="primary-button modal-button" id="modalNewGameButton">
+                PLAY AGAIN ↗
+            </button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
